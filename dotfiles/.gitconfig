@@ -1,0 +1,33 @@
+[user]
+	name = mroach
+	email = mroach@mroach.com
+	signingkey = 2E152325
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+[core]
+	autocrlf = false
+	filemode = false
+	excludesfile = ~/.gitignore_global
+[difftool]
+  prompt = false
+[push]
+    default = simple
+    followtags = true
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[alias]
+    l = log --name-status
+    lg = log --name-status --graph --decorate
+    dc = diff --cached
+    pr = pull --rebase
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[diff]
+	wsErrorHighlight = all
