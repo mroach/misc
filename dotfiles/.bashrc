@@ -85,4 +85,4 @@ export GPG_TTY=$(tty)
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-source "${HOME}/workspace/mroach/misc/bash_helpers/tmux_setups.sh"
+source "${HOME}/workspace/mroach/misc/shell_setups/tmux_setups.sh"
