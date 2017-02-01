@@ -12,10 +12,6 @@ export TERM=xterm-256color
 export EDITOR=vim
 export PAGER=less
 
-# pow configuration. (http://pow.cx)
-export POW_DOMAINS=dev,pow
-export POW_EXT_DOMAINS=lvh.me
-
 # Nicer prompt generation
 PS1_HOST='\h'
 PS1_DIR='\[\e[1;36m\]\w\[\e[0m\]'
@@ -69,20 +65,11 @@ test -e ~/.grc.bashrc && source ~/.grc.bashrc
 set vbell off
 set abell off
 
-# Ensure ssh keys are added
-ssh-add -A 2> /dev/null
-
-# Init rbenv and pyenv if available
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-
-# Read the API token from the macOS Keychain
-# To add: security add-generic-password -a "$USER" -s 'Homebrew GitHub Token' -w 'TOKEN GOES HERE'
-export HOMEBREW_GITHUB_API_TOKEN=$(security find-generic-password -s 'Homebrew GitHub Token' -w)
-
-# Ensure GNU Privacy Guard will work
-export GPG_TTY=$(tty)
-
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-source "${HOME}/workspace/mroach/misc/shell_setups/tmux_setups.sh"
+source $HOME/workspace/mroach/misc/shell_setups/langenv.sh
+source $HOME/workspace/mroach/misc/shell_setups/homebrew.sh
+source $HOME/workspace/mroach/misc/shell_setups/tmux_setups.sh
+source $HOME/workspace/mroach/misc/shell_setups/pow.sh
+source $HOME/workspace/mroach/misc/shell_setups/ssh.sh
+source $HOME/workspace/mroach/misc/shell_setups/gpg.sh
