@@ -1,5 +1,6 @@
 function dev-tmux() {
-    tmux new-session -d -s "`basename $PWD`"
+    _session_name=$(echo `basename $PWD` | sed -E "s/[^a-z0-9]+/_/g")
+    tmux new-session -d -s "$_session_name"
     tmux split-window -h
     tmux split-window -v
     tmux new-window 'tig'
