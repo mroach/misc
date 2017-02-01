@@ -5,5 +5,5 @@ function dev-tmux() {
     tmux split-window -v
     tmux new-window 'tig'
     tmux select-window -t :0
-    tmux -2 attach-session -d
+    tmux -2 attach-session -t "$_session_name"
 }
