@@ -31,3 +31,5 @@
 	required = true
 [diff]
 	wsErrorHighlight = all
+[commit]
+	gpgsign = true
