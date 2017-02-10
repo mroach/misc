@@ -11,6 +11,7 @@
 	autocrlf = false
 	filemode = false
 	excludesfile = ~/.gitignore_global
+	editor = /usr/bin/vim
 [difftool]
   prompt = false
 [push]
