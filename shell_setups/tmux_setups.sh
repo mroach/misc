@@ -4,7 +4,8 @@ function dev-tmux() {
     tmux set-option remain-on-exit on
 
     # create a new session. run guard if available
-    tmux new-session -d -s "$_session_name" 'test -e Guardfile && bundle exec guard'
+    #tmux new-session -d -s "$_session_name" 'test -e Guardfile && bundle exec guard'
+    tmux new-session -d -s "$_session_name"
 
     # create a new window, run the rails console if available
     tmux split-window -h 'test -e bin/rails && bundle exec rails c'
