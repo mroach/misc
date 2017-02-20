@@ -7,8 +7,8 @@ function dev-tmux() {
     #tmux new-session -d -s "$_session_name" 'test -e Guardfile && bundle exec guard'
     tmux new-session -d -s "$_session_name"
 
-    # create a new window, run the rails console if available
-    tmux split-window -h 'test -e bin/rails && bundle exec rails c'
+    # create a new window
+    tmux split-window -h
 
     # and then create one more window and leave it blank
     tmux split-window -v
