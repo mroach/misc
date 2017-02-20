@@ -8,10 +8,6 @@ export PATH
 
 export TERM=xterm-256color
 
-# vim > nano, obviously
-export EDITOR=vim
-export PAGER=less
-
 # Nicer prompt generation
 PS1_HOST='\h'
 PS1_DIR='\[\e[1;36m\]\w\[\e[0m\]'
@@ -67,6 +63,7 @@ set abell off
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
+source $HOME/workspace/mroach/misc/shell_setups/config.sh
 source $HOME/workspace/mroach/misc/shell_setups/langenv.sh
 source $HOME/workspace/mroach/misc/shell_setups/homebrew.sh
 source $HOME/workspace/mroach/misc/shell_setups/tmux_setups.sh

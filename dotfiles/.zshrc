@@ -64,6 +64,7 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mroach/.rbenv/s
 
 source $ZSH/oh-my-zsh.sh
 
+source $HOME/workspace/mroach/misc/shell_setups/config.sh
 source $HOME/workspace/mroach/misc/shell_setups/langenv.sh
 source $HOME/workspace/mroach/misc/shell_setups/homebrew.sh
 source $HOME/workspace/mroach/misc/shell_setups/tmux_setups.sh
