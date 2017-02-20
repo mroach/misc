@@ -16,16 +16,16 @@ pid=$(head -n1 "$pid_path")
 cmd_at_pid=$(ps $pid -co "command=")
 
 if [ "$cmd_at_pid" == "postgres" ]; then
-    echo "⚠️  Postgres is running with PID $pid! Aborting"
-    exit 1
+  echo "⚠️  Postgres is running with PID $pid! Aborting"
+  exit 1
 fi
 
 echo "👍  The existing PID file is can be deleted"
 read -p "⁉️  Delete $pid_path? [y/n]: " delete
 
 if [ "$delete" != "y" ]; then
-    echo "👋  Ok, bye"
-    exit 0
+  echo "👋  Ok, bye"
+  exit 0
 fi
 
 rm "$pid_path";
