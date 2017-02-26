@@ -42,7 +42,7 @@ while true; do
   # If the current battery level is at or below the threshold, run the event
   if [ $BATTLEVEL -le $EVENT_THRESHOLD ]; then
     echo "🏁  Battery is at ${BATTLEVEL}%. Issuing ${EVENT_NAME} command."
-    osascript -e "tell app 'System Events' to ${EVENT_NAME}"
+    osascript -e "tell app \"System Events\" to ${EVENT_NAME}"
     exit 0
   fi
 
