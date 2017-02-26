@@ -36,8 +36,9 @@ while true; do
   # The larger the negative rate, the more load that's on the battery
   AMPERAGE=$(system_profiler SPPowerDataType | grep Amperage | awk '{print $3}')
   VOLTAGE=$(system_profiler SPPowerDataType | grep Voltage | awk '{print $3}')
+  REMAINING=$(pmset -g batt | egrep -o '\d+:\d+ remaining' | awk '{print $1}')
 
-  echo "🔋  $(date): Battery at ${BATTLEVEL}%, load at ${AMPERAGE} mA, ${VOLTAGE} mV"
+  echo "[$(date)] 🔋  ${BATTLEVEL}%, ⏳  ${REMAINING}, ⚡️ ${AMPERAGE} mA, ${VOLTAGE} mV"
 
   # If the current battery level is at or below the threshold, run the event
   if [ $BATTLEVEL -le $EVENT_THRESHOLD ]; then
