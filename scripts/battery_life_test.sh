@@ -25,7 +25,7 @@ EVENT_THRESHOLD=20
 EVENT_NAME="sleep"
 
 echo "📟  Starting battery life test at $(date)"
-echo -e "⚙️  System will \e[4m${EVENT_NAME}\e[0m at \e[4m${EVENT_THRESHOLD}%\e[0m remaining"
+echo "⚙️  System will ${EVENT_NAME} at ${EVENT_THRESHOLD}% remaining"
 echo
 
 while true; do
