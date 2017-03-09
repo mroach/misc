@@ -36,6 +36,9 @@ DATE_FORMAT="%Y-%m-%d %H:%M:%S"
 
 echo "📟  Starting battery life test at $(date)"
 echo "⚙️  System will ${EVENT_NAME} at ${EVENT_THRESHOLD}% remaining"
+if [ ! -z "$CSV" ]; then
+  echo "✏️  Logging to $CSV"
+fi
 echo
 
 LAST_MVOLTS=""
@@ -124,6 +127,21 @@ while true; do
 
   printf "[%s] %s%5s%% (${CHARGE_COLOR}%4s\e[0m/${MAX_CHARGE_COLOR}%4s\e[0m mAh 🏥 ${HEALTH_COLOR}%3s%%\e[0m) ⏳ %5s ⚡️  %5s mA ${VOLTAGE_COLOR}%6sV\e[0m\n" \
     "$TIMESTAMP" "$POWER_ICON" "$BATTLEVEL" "$CHARGE" "$MAX_CHARGE" "$HEALTH" "$REMAINING" "$AMPERAGE_RATE" "$VOLTS"
+
+  if [ ! -z "$CSV" ]; then
+    if [ $CHARGER_CONNECTED -eq 1 ]; then
+      POWER_SOURCE="AC";
+    else
+      POWER_SOURCE="BATT";
+    fi
+
+    # Create CSV header if this is a new log file
+    if [ ! -f "$CSV" ]; then
+      echo "Timestamp,PowerSource,BatteryLevel,CurrentCharge,MaxCapacity,Health,TimeRemaining,Current,Volts" >> "$CSV"
+    fi
+
+    echo "$TIMESTAMP,$POWER_SOURCE,$BATTLEVEL,$CHARGE,$MAX_CHARGE,$HEALTH,$REMAINING,$AMPERAGE_RATE,$VOLTS" >> "$CSV"
+  fi
 
   # If unplugged and current battery level is at or below the threshold, run the event
   if [ $CHARGER_CONNECTED -eq 0 ] && [ $BATTLEVEL -le $EVENT_THRESHOLD ]; then
