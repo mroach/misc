@@ -2,7 +2,7 @@
 # The agent will cache the key so you're not prompted constantly for the passphrase
 which gpg-agent &>/dev/null
 
-if [ $? -ne 0 ]; then; exit; fi
+if [ $? -ne 0 ]; then exit; fi
 
 export GPG_TTY=$(tty)
 
