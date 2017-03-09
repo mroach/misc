@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# this is a macOS-only script because it uses:
-# pmset: for reading battery level
-# ioreg: reading other power data
-# system_profiler: amperage (ioreg value is wrong)
+# Currently a macOS-only script due to dependencies on:
+# pmset: for reading most power information
+# ioreg: reading voltage
 # osascript: running the power control event without requiring sudo for 'shutdown'
 
 # example usage
@@ -34,26 +33,12 @@ INTERVAL=60
 # Default: 2017-02-24 14:32:01
 DATE_FORMAT="%Y-%m-%d %H:%M:%S"
 
-echo "📟  Starting battery life test at $(date)"
-echo "⚙️  System will ${EVENT_NAME} at ${EVENT_THRESHOLD}% remaining"
-if [ ! -z "$CSV" ]; then
-  echo "✏️  Logging to $CSV"
-fi
-echo
-
-LAST_MVOLTS=""
-LAST_CHARGE=""
-
 function _strip() {
   cat - | sed -E 's/^[[:space:]]+//' | sed -E 's/[[:space:]]+$//'
 }
 
 function _ioreg_batt_val() {
   echo $(ioreg -rn AppleSmartBattery | grep -E "^\s+\"$1\"" | cut -d= -f2 | _strip)
-}
-
-function _profiler_batt_val() {
-  echo $(system_profiler SPPowerDataType | grep "$1:" | cut -d: -f2 | _strip)
 }
 
 function _colourise_change() {
@@ -69,36 +54,61 @@ function _colourise_change() {
   else echo "\e[39m"; fi
 }
 
+echo "📟  Starting battery life test at $(date)"
+echo "⚙️  System will ${EVENT_NAME} at ${EVENT_THRESHOLD}% remaining"
+if [ ! -z "$CSV" ]; then
+  echo "✏️  Logging to $CSV"
+fi
+echo
+
+LAST_MVOLTS=""
+LAST_CHARGE=""
+
 while true; do
-  BATTLEVEL=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
+  # reads in a line of data looking like:
+  # AC; Charging; 98%; Cap=5596: FCC=5689; Design=6900; Time=0:16; 433mA; Cycles=6/1000; Location=0;
+  i=0
+  while read -r line; do
+    val=$(echo "$line" | _strip)
+    case "$i" in
+      "0")
+        # Either AC or No AC
+        POWER_SOURCE=$val;;
+      "2")
+        BATTLEVEL=$(echo $val | sed 's/%//');;
+      "3")
+        # Get current amperage.
+        # Positive value indicates charging, negative indicates discharging
+        # The larger the negative rate, the more load that's on the battery
+        CHARGE=$(echo $val | cut -d= -f2);;
+      "4")
+        # Battery capacity in mAh. This number varies based on the last charge
+        MAX_CHARGE=$(echo $val | cut -d= -f2);;
+      "5")
+        # Get the design capacity for the battery. This should never change, but
+        # given the oddities witnessed with batteries, best to check on every iteration
+        DESIGN_CAPACITY=$(echo $val | cut -d= -f2);;
+      "6")
+        # Time remaining. Either battery run time or time until fully charged
+        REMAINING=$(echo $val | cut -d= -f2);;
+      "7")
+        # The amperage is a negative number when running on battery and indicates the
+        # load/draw. It's positive when charging and indicates charge rate. The number
+        # gets smaller as the battery gets closer to being full. It does go negative
+        # around 100% to prevent overcharging
+        AMPERAGE_RATE=$(echo $val | grep -Eo '^-?\d+')
+    esac
+    (( i++ ))
+  done < <(pmset -g rawbatt | sed -n 2p | sed $'s/[;:] /\\\n/g')
 
   # Determine if the charger is connected.
-  CHARGER_ID=$(pmset -g adapter | grep AdapterID | cut -d= -f2 | sed -E 's/ //')
-  if [ -z "$CHARGER_ID" ]; then
-    CHARGER_CONNECTED=0;
-    POWER_ICON="🔋"
-  else
+  if [ "$POWER_SOURCE" == "AC" ]; then
     CHARGER_CONNECTED=1;
     POWER_ICON="🔌"
+  else
+    CHARGER_CONNECTED=0;
+    POWER_ICON="🔋"
   fi
-
-  # Get current amperage.
-  # Positive value indicates charging, negative indicates discharging
-  # The larger the negative rate, the more load that's on the battery
-  CHARGE=$(_ioreg_batt_val CurrentCapacity)
-
-  # Get battery capacity in mAh. This number varies based on the last charge
-  MAX_CHARGE=$(_ioreg_batt_val MaxCapacity)
-
-  # Get the design capacity for the battery. This should never change, but
-  # given the oddities witnessed with batteries, best to check on every iteration
-  DESIGN_CAPACITY=$(_ioreg_batt_val DesignCapacity)
-
-  # The amperage is a negative number when running on battery and indicates the
-  # load/draw. It's positive when charging and indicates charge rate. The number
-  # gets smaller as the battery gets closer to being full. It does go negative
-  # around 100% to prevent overcharging
-  AMPERAGE_RATE=$(_profiler_batt_val 'Amperage (mA)')
 
   # Voltage, in mV. The lower the battery level gets, the lower this tends to get
   # A full battery delivers about 12.5 V and the system shuts itself off around 9.5 V
@@ -106,9 +116,6 @@ while true; do
 
   # Converted to Volts as a decimal with a scale of 3. e.g.  12451 => 12.451
   VOLTS=$(echo "scale=3; $MVOLTS / 1000" | bc)
-
-  # Time remaining. Either battery run time or time until fully charged
-  REMAINING=$(pmset -g batt | egrep -o '\d+:\d+ remaining' | awk '{print $1}')
 
   # Calculate health as a whole-number percentage
   # This is what the system perceives as the maximum charge capacity of the battery
