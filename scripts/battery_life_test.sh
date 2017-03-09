@@ -1,12 +1,12 @@
 #!/bin/bash
 
+# example usage
+# THRESHOLD=20 CSV=battlog.csv ./battery_life_test.sh
+
 # Currently a macOS-only script due to dependencies on:
 # pmset: for reading most power information
 # ioreg: reading voltage
 # osascript: running the power control event without requiring sudo for 'shutdown'
-
-# example usage
-# ./battery_life_test.sh | tee "battery-test-$(date +%Y%m%d%H%M).log"
 
 # Run this script to automatically sleep or shutdown your system at a defined battery level
 # For example if you want to see how long your system lasts playing a video
@@ -19,9 +19,14 @@
 # It's advised not to use a value lower than 20 as this stresses lithium-ion
 # batteries. Repeatedly running li-ion battery below 20% charge will permanently
 # affect their charge capacity
+#
 # If the computer is plugged in and the battery is below this level, the event
 # will NOT be executed.
 # E.g. Battery is at 5% but laptop is plugged in, no event fired
+#
+# Set to -1 to let the system run itself to death. 0 won't necessarily work
+# since on old batteries and fouled-up systems, the system can read 0 then jump
+# back up
 EVENT_THRESHOLD=${THRESHOLD-20}
 
 # valid options are: sleep, shut down, restart
