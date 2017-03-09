@@ -31,6 +31,9 @@ EVENT_NAME="sleep"
 # How long to wait between battery checks, in seconds
 INTERVAL=60
 
+# Default: 2017-02-24 14:32:01
+DATE_FORMAT="%Y-%m-%d %H:%M:%S"
+
 echo "📟  Starting battery life test at $(date)"
 echo "⚙️  System will ${EVENT_NAME} at ${EVENT_THRESHOLD}% remaining"
 echo
@@ -101,9 +104,10 @@ while true; do
   # If it went up: green, down: red, stayed same: no colour
   VOLTAGE_COLOR=$(_colourise_change MVOLTS)
   CHARGE_COLOR=$(_colourise_change CHARGE)
+  TIMESTAMP=$(date +"$DATE_FORMAT")
 
   printf "[%s] %s%5s%% (${CHARGE_COLOR}%4s\e[0m/%4s mAh) ⏳ %5s ⚡️  %5s mA ${VOLTAGE_COLOR}%6sV\e[0m\n" \
-    "$(date)" "$POWER_ICON" "$BATTLEVEL" "$CHARGE" "$MAX_CHARGE" "$REMAINING" "$AMPERAGE_RATE" "$VOLTS"
+    "$TIMESTAMP" "$POWER_ICON" "$BATTLEVEL" "$CHARGE" "$MAX_CHARGE" "$REMAINING" "$AMPERAGE_RATE" "$VOLTS"
 
   # If unplugged and current battery level is at or below the threshold, run the event
   if [ $CHARGER_CONNECTED -eq 0 ] && [ $BATTLEVEL -le $EVENT_THRESHOLD ]; then
