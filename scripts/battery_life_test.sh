@@ -48,14 +48,14 @@ function _ioreg_batt_val() {
 
 function _colourise_change() {
   local var_name=$1
-  eval "last_val=\$LAST_${var_name}"
+  eval "last_val=\$last_${var_name}"
   eval "curr_val=\$${var_name}"
-  NOSTYLE="${NOSTYLE:=\e[39m}"
-  UPSTYLE="${UPSTYLE:=\e[92m}"
-  DOWNSTYLE="${DOWNSTYLE:=\e[91m}"
-  if   [ -z $last_val ]; then echo $NOSTYLE
-  elif [ $curr_val -gt $last_val ]; then echo $UPSTYLE
-  elif [ $curr_val -lt $last_val ]; then echo $DOWNSTYLE
+  nostyle="${NOSTYLE:=\e[39m}"
+  upstyle="${UPSTYLE:=\e[92m}"
+  downstyle="${DOWNSTYLE:=\e[91m}"
+  if   [ -z $last_val ]; then echo $nostyle
+  elif [ $curr_val -gt $last_val ]; then echo $upstyle
+  elif [ $curr_val -lt $last_val ]; then echo $downstyle
   else echo "\e[39m"; fi
 }
 
@@ -66,9 +66,6 @@ if [ ! -z "$CSV" ]; then
 fi
 echo
 
-LAST_MVOLTS=""
-LAST_CHARGE=""
-
 while true; do
   # reads in a line of data looking like:
   # AC; Charging; 98%; Cap=5596: FCC=5689; Design=6900; Time=0:16; 433mA; Cycles=6/1000; Location=0;
@@ -78,73 +75,73 @@ while true; do
     case "$i" in
       "0")
         # Either AC or No AC
-        POWER_SOURCE=$val;;
+        power_source=$val;;
       "2")
-        BATTLEVEL=$(echo $val | sed 's/%//');;
+        battlevel=$(echo $val | sed 's/%//');;
       "3")
         # Get current amperage.
         # Positive value indicates charging, negative indicates discharging
         # The larger the negative rate, the more load that's on the battery
-        CHARGE=$(echo $val | cut -d= -f2);;
+        charge=$(echo $val | cut -d= -f2);;
       "4")
         # Battery capacity in mAh. This number varies based on the last charge
-        MAX_CHARGE=$(echo $val | cut -d= -f2);;
+        max_charge=$(echo $val | cut -d= -f2);;
       "5")
         # Get the design capacity for the battery. This should never change, but
         # given the oddities witnessed with batteries, best to check on every iteration
-        DESIGN_CAPACITY=$(echo $val | cut -d= -f2);;
+        design_capacity=$(echo $val | cut -d= -f2);;
       "6")
         # Time remaining. Either battery run time or time until fully charged
-        REMAINING=$(echo $val | cut -d= -f2);;
+        remaining=$(echo $val | cut -d= -f2);;
       "7")
         # The amperage is a negative number when running on battery and indicates the
         # load/draw. It's positive when charging and indicates charge rate. The number
         # gets smaller as the battery gets closer to being full. It does go negative
         # around 100% to prevent overcharging
-        AMPERAGE_RATE=$(echo $val | grep -Eo '^-?\d+')
+        amperage_rate=$(echo $val | grep -Eo '^-?\d+')
     esac
     (( i++ ))
   done < <(pmset -g rawbatt | sed -n 2p | sed $'s/[;:] /\\\n/g')
 
   # Determine if the charger is connected.
-  if [ "$POWER_SOURCE" == "AC" ]; then
-    CHARGER_CONNECTED=1;
-    POWER_ICON="🔌"
+  if [ "$power_source" == "AC" ]; then
+    charger_connected=1;
+    power_icon="🔌"
   else
-    CHARGER_CONNECTED=0;
-    POWER_ICON="🔋"
+    charger_connected=0;
+    power_icon="🔋"
   fi
 
   # Voltage, in mV. The lower the battery level gets, the lower this tends to get
   # A full battery delivers about 12.5 V and the system shuts itself off around 9.5 V
-  MVOLTS=$(_ioreg_batt_val Voltage)
+  mvolts=$(_ioreg_batt_val Voltage)
 
   # Converted to Volts as a decimal with a scale of 3. e.g.  12451 => 12.451
-  VOLTS=$(echo "scale=3; $MVOLTS / 1000" | bc)
+  volts=$(echo "scale=3; $mvolts / 1000" | bc)
 
   # Calculate health as a whole-number percentage
   # This is what the system perceives as the maximum charge capacity of the battery
   # divided by the design capacity advertised by the battery.
   # On older systems and batteries, the max charge can jump around even during
   # the same charge or discharge cycle.
-  HEALTH=$(echo "$MAX_CHARGE * 100 / $DESIGN_CAPACITY" | bc)
+  health=$(echo "$max_charge * 100 / $design_capacity" | bc)
 
   # Colourise voltage and charge percentage.
   # If it went up: green, down: red, stayed same: no colour
-  VOLTAGE_COLOR=$(_colourise_change MVOLTS)
-  CHARGE_COLOR=$(_colourise_change CHARGE)
-  MAX_CHARGE_COLOR=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[30;42m" _colourise_change MAX_CHARGE)
-  HEALTH_COLOR=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[30;42m" _colourise_change HEALTH)
-  TIMESTAMP=$(date +"$DATE_FORMAT")
+  voltage_color=$(_colourise_change mvolts)
+  charge_color=$(_colourise_change charge)
+  max_charge_color=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[30;42m" _colourise_change max_charge)
+  health_color=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[30;42m" _colourise_change health)
+  timestamp=$(date +"$DATE_FORMAT")
 
-  printf "[%s] %s%5s%% (${CHARGE_COLOR}%4s\e[0m/${MAX_CHARGE_COLOR}%4s\e[0m mAh 🏥  ${HEALTH_COLOR}%s%%\e[0m) ⏳ %5s ⚡️  %5s mA ${VOLTAGE_COLOR}%6sV\e[0m\n" \
-    "$TIMESTAMP" "$POWER_ICON" "$BATTLEVEL" "$CHARGE" "$MAX_CHARGE" "$HEALTH" "$REMAINING" "$AMPERAGE_RATE" "$VOLTS"
+  printf "[%s] %s%5s%% (${charge_color}%4s\e[0m/${max_charge_color}%4s\e[0m mAh 🏥  ${health_color}%s%%\e[0m) ⏳ %5s ⚡️  %5s mA ${voltage_color}%6sV\e[0m\n" \
+    "$timestamp" "$power_icon" "$battlevel" "$charge" "$max_charge" "$health" "$remaining" "$amperage_rate" "$volts"
 
   if [ ! -z "$CSV" ]; then
-    if [ $CHARGER_CONNECTED -eq 1 ]; then
-      POWER_SOURCE="AC";
+    if [ $charger_connected -eq 1 ]; then
+      power_source="AC";
     else
-      POWER_SOURCE="BATT";
+      power_source="BATT";
     fi
 
     # Create CSV header if this is a new log file
@@ -152,25 +149,25 @@ while true; do
       echo "Timestamp,PowerSource,BatteryLevel,CurrentCharge,MaxCapacity,Health,TimeRemaining,Current,Volts" >> "$CSV"
     fi
 
-    echo "$TIMESTAMP,$POWER_SOURCE,$BATTLEVEL,$CHARGE,$MAX_CHARGE,$HEALTH,$REMAINING,$AMPERAGE_RATE,$VOLTS" >> "$CSV"
+    echo "$timestamp,$power_source,$battlevel,$charge,$max_charge,$health,$remaining,$amperage_rate,$volts" >> "$CSV"
   fi
 
   # If unplugged and current battery level is at or below the threshold, run the event
-  if [ $CHARGER_CONNECTED -eq 0 ] && [ $BATTLEVEL -le $EVENT_THRESHOLD ]; then
+  if [ $charger_connected -eq 0 ] && [ $battlevel -le $EVENT_THRESHOLD ]; then
     echo
-    echo "🏁  Battery is at ${BATTLEVEL}%. Issuing ${EVENT_NAME} command."
+    echo "🏁  Battery is at ${battlevel}%. Issuing ${EVENT_NAME} command."
     osascript -e "tell app \"System Events\" to ${EVENT_NAME}"
     exit 0
   fi
 
-  if [ $MVOLTS -lt 10000 ]; then
+  if [ $mvolts -lt 10000 ]; then
     terminal-notifier -title "⚠️ Battery at $VOLTS volts" -message "Hard shutdown imminent!"
   fi
 
-  LAST_CHARGE=$CHARGE
-  LAST_MVOLTS=$MVOLTS
-  LAST_MAX_CHARGE=$MAX_CHARGE
-  LAST_HEALTH=$HEALTH
+  last_charge=$charge
+  last_mvolts=$mvolts
+  last_max_charge=$max_charge
+  last_health=$health
 
   sleep $INTERVAL
 done
