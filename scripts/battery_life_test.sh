@@ -132,7 +132,7 @@ while true; do
   HEALTH_COLOR=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[30;42m" _colourise_change HEALTH)
   TIMESTAMP=$(date +"$DATE_FORMAT")
 
-  printf "[%s] %s%5s%% (${CHARGE_COLOR}%4s\e[0m/${MAX_CHARGE_COLOR}%4s\e[0m mAh 🏥 ${HEALTH_COLOR}%3s%%\e[0m) ⏳ %5s ⚡️  %5s mA ${VOLTAGE_COLOR}%6sV\e[0m\n" \
+  printf "[%s] %s%5s%% (${CHARGE_COLOR}%4s\e[0m/${MAX_CHARGE_COLOR}%4s\e[0m mAh 🏥  ${HEALTH_COLOR}%s%%\e[0m) ⏳ %5s ⚡️  %5s mA ${VOLTAGE_COLOR}%6sV\e[0m\n" \
     "$TIMESTAMP" "$POWER_ICON" "$BATTLEVEL" "$CHARGE" "$MAX_CHARGE" "$HEALTH" "$REMAINING" "$AMPERAGE_RATE" "$VOLTS"
 
   if [ ! -z "$CSV" ]; then
