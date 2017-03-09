@@ -57,9 +57,12 @@ function _colourise_change() {
   local var_name=$1
   eval "last_val=\$LAST_${var_name}"
   eval "curr_val=\$${var_name}"
-  if   [ -z $last_val ]; then echo "\e[39m"
-  elif [ $curr_val -gt $last_val ]; then echo "\e[92m" #green
-  elif [ $curr_val -lt $last_val ]; then echo "\e[91m" #red
+  NOSTYLE="${NOSTYLE:=\e[39m}"
+  UPSTYLE="${UPSTYLE:=\e[92m}"
+  DOWNSTYLE="${DOWNSTYLE:=\e[91m}"
+  if   [ -z $last_val ]; then echo $NOSTYLE
+  elif [ $curr_val -gt $last_val ]; then echo $UPSTYLE
+  elif [ $curr_val -lt $last_val ]; then echo $DOWNSTYLE
   else echo "\e[39m"; fi
 }
 
@@ -104,9 +107,10 @@ while true; do
   # If it went up: green, down: red, stayed same: no colour
   VOLTAGE_COLOR=$(_colourise_change MVOLTS)
   CHARGE_COLOR=$(_colourise_change CHARGE)
+  MAX_CHARGE_COLOR=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[42m" _colourise_change MAX_CHARGE)
   TIMESTAMP=$(date +"$DATE_FORMAT")
 
-  printf "[%s] %s%5s%% (${CHARGE_COLOR}%4s\e[0m/%4s mAh) ⏳ %5s ⚡️  %5s mA ${VOLTAGE_COLOR}%6sV\e[0m\n" \
+  printf "[%s] %s%5s%% (${CHARGE_COLOR}%4s\e[0m/${MAX_CHARGE_COLOR}%4s\e[0m mAh) ⏳ %5s ⚡️  %5s mA ${VOLTAGE_COLOR}%6sV\e[0m\n" \
     "$TIMESTAMP" "$POWER_ICON" "$BATTLEVEL" "$CHARGE" "$MAX_CHARGE" "$REMAINING" "$AMPERAGE_RATE" "$VOLTS"
 
   # If unplugged and current battery level is at or below the threshold, run the event
@@ -123,6 +127,7 @@ while true; do
 
   LAST_CHARGE=$CHARGE
   LAST_MVOLTS=$MVOLTS
+  LAST_MAX_CHARGE=$MAX_CHARGE
 
   sleep $INTERVAL
 done
