@@ -128,8 +128,8 @@ while true; do
   # If it went up: green, down: red, stayed same: no colour
   VOLTAGE_COLOR=$(_colourise_change MVOLTS)
   CHARGE_COLOR=$(_colourise_change CHARGE)
-  MAX_CHARGE_COLOR=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[42m" _colourise_change MAX_CHARGE)
-  HEALTH_COLOR=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[42m" _colourise_change HEALTH)
+  MAX_CHARGE_COLOR=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[30;42m" _colourise_change MAX_CHARGE)
+  HEALTH_COLOR=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[30;42m" _colourise_change HEALTH)
   TIMESTAMP=$(date +"$DATE_FORMAT")
 
   printf "[%s] %s%5s%% (${CHARGE_COLOR}%4s\e[0m/${MAX_CHARGE_COLOR}%4s\e[0m mAh 🏥 ${HEALTH_COLOR}%3s%%\e[0m) ⏳ %5s ⚡️  %5s mA ${VOLTAGE_COLOR}%6sV\e[0m\n" \
