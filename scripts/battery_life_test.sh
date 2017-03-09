@@ -87,6 +87,10 @@ while true; do
   # Get battery capacity in mAh. This number varies based on the last charge
   MAX_CHARGE=$(_ioreg_batt_val MaxCapacity)
 
+  # Get the design capacity for the battery. This should never change, but
+  # given the oddities witnessed with batteries, best to check on every iteration
+  DESIGN_CAPACITY=$(_ioreg_batt_val DesignCapacity)
+
   # The amperage is a negative number when running on battery and indicates the
   # load/draw. It's positive when charging and indicates charge rate. The number
   # gets smaller as the battery gets closer to being full. It does go negative
@@ -103,15 +107,23 @@ while true; do
   # Time remaining. Either battery run time or time until fully charged
   REMAINING=$(pmset -g batt | egrep -o '\d+:\d+ remaining' | awk '{print $1}')
 
+  # Calculate health as a whole-number percentage
+  # This is what the system perceives as the maximum charge capacity of the battery
+  # divided by the design capacity advertised by the battery.
+  # On older systems and batteries, the max charge can jump around even during
+  # the same charge or discharge cycle.
+  HEALTH=$(echo "$MAX_CHARGE * 100 / $DESIGN_CAPACITY" | bc)
+
   # Colourise voltage and charge percentage.
   # If it went up: green, down: red, stayed same: no colour
   VOLTAGE_COLOR=$(_colourise_change MVOLTS)
   CHARGE_COLOR=$(_colourise_change CHARGE)
   MAX_CHARGE_COLOR=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[42m" _colourise_change MAX_CHARGE)
+  HEALTH_COLOR=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[42m" _colourise_change HEALTH)
   TIMESTAMP=$(date +"$DATE_FORMAT")
 
-  printf "[%s] %s%5s%% (${CHARGE_COLOR}%4s\e[0m/${MAX_CHARGE_COLOR}%4s\e[0m mAh) ⏳ %5s ⚡️  %5s mA ${VOLTAGE_COLOR}%6sV\e[0m\n" \
-    "$TIMESTAMP" "$POWER_ICON" "$BATTLEVEL" "$CHARGE" "$MAX_CHARGE" "$REMAINING" "$AMPERAGE_RATE" "$VOLTS"
+  printf "[%s] %s%5s%% (${CHARGE_COLOR}%4s\e[0m/${MAX_CHARGE_COLOR}%4s\e[0m mAh 🏥 ${HEALTH_COLOR}%3s%%\e[0m) ⏳ %5s ⚡️  %5s mA ${VOLTAGE_COLOR}%6sV\e[0m\n" \
+    "$TIMESTAMP" "$POWER_ICON" "$BATTLEVEL" "$CHARGE" "$MAX_CHARGE" "$HEALTH" "$REMAINING" "$AMPERAGE_RATE" "$VOLTS"
 
   # If unplugged and current battery level is at or below the threshold, run the event
   if [ $CHARGER_CONNECTED -eq 0 ] && [ $BATTLEVEL -le $EVENT_THRESHOLD ]; then
@@ -128,6 +140,7 @@ while true; do
   LAST_CHARGE=$CHARGE
   LAST_MVOLTS=$MVOLTS
   LAST_MAX_CHARGE=$MAX_CHARGE
+  LAST_HEALTH=$HEALTH
 
   sleep $INTERVAL
 done
