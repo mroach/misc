@@ -1,7 +1,18 @@
 #!/bin/bash
 
-# example usage
-# THRESHOLD=20 CSV=battlog.csv ./battery_life_test.sh
+# Example usages
+
+## Test battery life down to 20%, prevent idle sleep
+# THRESHOLD=20 CAFFEINATE=1 CSV=battlog.csv ./battery_life_test.sh
+#
+## Prevent idle sleep, run down to 20%, then shutdown
+# THRESHOLD=20 CAFFEINATE=1 CMD="shut down" CSV=battlog.csv ./battery_life_test.sh
+#
+## Run batteryt o death, prevent idle sleep along the way
+# CMD=nothing CAFFEINATE=1 CSV=battlog.csv ./battery_life_test.sh
+#
+## Just log battery life, don't do anything
+# CMD=nothing CSV=battlog.csv ./battery_life_test.sh
 
 # Currently a macOS-only script due to dependencies on:
 # pmset: for reading most power information
@@ -30,13 +41,17 @@
 EVENT_THRESHOLD=${THRESHOLD-20}
 
 # valid options are: sleep, shut down, restart, and nothing
-CMD="sleep"
+CMD=${CMD:-sleep}
 
 # How long to wait between battery checks, in seconds
 INTERVAL=60
 
 # Default: 2017-02-24 14:32:01
 DATE_FORMAT="%Y-%m-%d %H:%M:%S"
+
+# When set to 1, this script will use caffeinate to prevent the system from
+# going to sleep. This is a good alternative to playing a video on a loop
+CAFFEINATE=${CAFFEINATE-0}
 
 function _strip() {
   cat - | sed -E 's/^[[:space:]]+//' | sed -E 's/[[:space:]]+$//'
@@ -60,7 +75,19 @@ function _colourise_change() {
 }
 
 echo "📟  Starting battery life test at $(date)"
-echo "⚙️  System will ${CMD} at ${EVENT_THRESHOLD}% remaining"
+
+if [ "$CMD" == "nothing" ]; then
+  echo "⚙️  No action will be taken by this script at any charge level"
+else
+  echo "⚙️  System will ${CMD} at ${EVENT_THRESHOLD}% remaining"
+fi
+
+if [ $CAFFEINATE -eq 1 ]; then
+  echo "☕️  Caffeinating to prevent system sleep due to idle"
+  # -d  Prevent display from sleeping
+  # -i  Prevent system from idle sleeping (default anyway)
+  caffeinate -di -w $$ &
+fi
 
 if [ ! -z "$CSV" ]; then
   echo "✏️  Logging to $CSV"
@@ -155,7 +182,7 @@ while true; do
   fi
 
   # If unplugged and current battery level is at or below the threshold, run the event
-  if [ $charger_connected -eq 0 ] && [ $battlevel -le $EVENT_THRESHOLD ]; then
+  if [ "$CMD" != "nothing" ]  && [ $charger_connected -eq 0 ] && [ $battlevel -le $EVENT_THRESHOLD ]; then
     echo
     echo "🏁  Battery is at ${battlevel}%. Issuing ${CMD} command."
     osascript -e "tell app \"System Events\" to ${CMD}"
