@@ -38,7 +38,7 @@
 # Set to -1 to let the system run itself to death. 0 won't necessarily work
 # since on old batteries and fouled-up systems, the system can read 0 then jump
 # back up
-EVENT_THRESHOLD=${THRESHOLD-20}
+EVENT_THRESHOLD=${THRESHOLD:-20}
 
 # valid options are: sleep, shut down, restart, and nothing
 CMD=${CMD:-sleep}
