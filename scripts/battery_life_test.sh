@@ -29,8 +29,8 @@
 # back up
 EVENT_THRESHOLD=${THRESHOLD-20}
 
-# valid options are: sleep, shut down, restart
-EVENT_NAME="sleep"
+# valid options are: sleep, shut down, restart, and nothing
+CMD="sleep"
 
 # How long to wait between battery checks, in seconds
 INTERVAL=60
@@ -60,10 +60,12 @@ function _colourise_change() {
 }
 
 echo "📟  Starting battery life test at $(date)"
-echo "⚙️  System will ${EVENT_NAME} at ${EVENT_THRESHOLD}% remaining"
+echo "⚙️  System will ${CMD} at ${EVENT_THRESHOLD}% remaining"
+
 if [ ! -z "$CSV" ]; then
   echo "✏️  Logging to $CSV"
 fi
+
 echo
 
 while true; do
@@ -155,8 +157,8 @@ while true; do
   # If unplugged and current battery level is at or below the threshold, run the event
   if [ $charger_connected -eq 0 ] && [ $battlevel -le $EVENT_THRESHOLD ]; then
     echo
-    echo "🏁  Battery is at ${battlevel}%. Issuing ${EVENT_NAME} command."
-    osascript -e "tell app \"System Events\" to ${EVENT_NAME}"
+    echo "🏁  Battery is at ${battlevel}%. Issuing ${CMD} command."
+    osascript -e "tell app \"System Events\" to ${CMD}"
     exit 0
   fi
 
