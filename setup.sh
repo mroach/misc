@@ -10,7 +10,7 @@ ln -s $SRCDIR/dotfiles/.gnupg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
 ln -s $SRCDIR/dotfiles/.gitconfig $HOME/.gitconfig
 ln -s $SRCDIR/dotfiles/.grc.bashrc $HOME/.grc.bashrc
 ln -s $SRCDIR/dotfiles/.tmux.conf $HOME/.tmux.conf
-ln -s $SRCDIR/dotfiles/.zshrc $HOME/.bashrc
+ln -s $SRCDIR/dotfiles/.bashrc $HOME/.bashrc
 ln -s $SRCDIR/dotfiles/.zshrc $HOME/.zshrc
 
 # .bash_profile is executed for login shells; .bashrc is executed for interactive non-login shells
