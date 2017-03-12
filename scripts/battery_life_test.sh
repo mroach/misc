@@ -163,6 +163,10 @@ while true; do
   health_color=$(DOWNSTYLE="\e[101m" UPSTYLE="\e[30;42m" _colourise_change health)
   timestamp=$(date +"$DATE_FORMAT")
 
+  # set window title for fun
+  windowtitle="$power_icon $battlevel% ($remaining) ⚡️$amperage_rate mA $volts V"
+  echo -e '\033]2;'$windowtitle'\007'
+
   printf "[%s] %s%5s%% (${charge_color}%4s\e[0m/${max_charge_color}%4s\e[0m mAh 🏥  ${health_color}%s%%\e[0m) ⏳ %5s ⚡️  %5s mA ${voltage_color}%6sV\e[0m\n" \
     "$timestamp" "$power_icon" "$battlevel" "$charge" "$max_charge" "$health" "$remaining" "$amperage_rate" "$volts"
 
