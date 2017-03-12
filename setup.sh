@@ -6,7 +6,7 @@
 # this will allow us to create symlinks with full paths
 SRCDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-ln -s $SRCDIR/dotfiles/.gnupg $HOME/.gnupg
+ln -s $SRCDIR/dotfiles/.gnupg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
 ln -s $SRCDIR/dotfiles/.gitconfig $HOME/.gitconfig
 ln -s $SRCDIR/dotfiles/.grc.bashrc $HOME/.grc.bashrc
 ln -s $SRCDIR/dotfiles/.tmux.conf $HOME/.tmux.conf
