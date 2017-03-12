@@ -62,7 +62,9 @@ plugins=(brew bundler cap dirhistory gem git gitfast git-extras rails)
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mroach/.rbenv/shims:/Users/mroach/local/bin:/Users/mroach/local/sbin:/usr/local/sbin:/Users/mroach/bin:/Users/mroach/usr/bin:/Developer/usr/bin:/Users/mroach/android-sdk-macosx/platform-tools"
 # export MANPATH="/usr/local/man:$MANPATH"
 
-source $ZSH/oh-my-zsh.sh
+if [ -f $ZSH/oh-my-zsh.sh ]; then
+  source $ZSH/oh-my-zsh.sh
+fi
 
 source $HOME/workspace/mroach/misc/shell_setups/config.sh
 source $HOME/workspace/mroach/misc/shell_setups/langenv.sh
