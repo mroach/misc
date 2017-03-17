@@ -14,6 +14,7 @@ SPACESHIP_NVM_SHOW=false
 SPACESHIP_PYENV_SHOW=false
 SPACESHIP_RUBY_SHOW=false
 SPACESHIP_PYENV_SHOW=false
+SPACESHIP_PROMPT_TRUNC=8
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
