@@ -21,4 +21,6 @@ ln -s $HOME/.bashrc $HOME/.bash_profile
 
 if [ $platform == "Darwin" ]; then
   ln -s $srcdir/settings/sublime/Preferences.sublime-settings "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+elif [ $platform == "Linux" ]; then
+  ln -s $srcdir/settings/sublime/Preferences.sublime-settings "$HOME/.config/sublime-text-3/Packages/User/Preferences.sublime-settings"
 fi
