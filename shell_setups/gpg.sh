@@ -10,8 +10,7 @@ pgrep -q gpg-agent
 if [ $? -eq 0 ]; then
   source $HOME/.gpg-agent-info
   export GPG_AGENT_INFO
-  gpg-connect-agent /bye &>/dev/null
+  gpg-connect-agent /bye
 else
-  gpg-agent --daemon &>/dev/null
-  export GPG_AGENT_INFO
+  eval $(gpg-agent --daemon)
 fi
