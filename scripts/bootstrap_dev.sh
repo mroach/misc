@@ -25,6 +25,8 @@ brew install terminal-notifier
 brew install tig
 brew install phantomjs
 brew install imagemagick
+brew install httpie
+brew install axel
 
 npm install bower -g
 
