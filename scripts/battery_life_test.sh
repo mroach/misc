@@ -194,7 +194,7 @@ while true; do
   fi
 
   if [ $mvolts -lt 10000 ]; then
-    terminal-notifier -title "⚠️ Battery at $VOLTS volts" -message "Hard shutdown imminent!"
+    terminal-notifier -title "⚠️ Battery at $volts volts" -message "Hard shutdown imminent!"
   fi
 
   last_charge=$charge
