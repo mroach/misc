@@ -52,6 +52,12 @@ brew cask install vlc
 brew cask install 1password
 brew cask install dropbox
 brew cask install beamer
+brew cask install postman
+brew cask install istat-menus
+brew cask install handbrake
+brew cask install little-snitch
+brew cask install transmit
+brew cask install igetter
 
 curl get.pow.cx | sh
 
