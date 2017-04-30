@@ -59,6 +59,22 @@ brew cask install little-snitch
 brew cask install transmit
 brew cask install igetter
 
+# Finds the license key to an app in the keychain then sets it up using defaults
+set_license_key() {
+  appname=$1
+  license_key=$(security find-generic-password -s "$appname License Key" -w)
+  if [ -z "$license_key" ]; then
+    puts "Could not find a license key for $appname in the keychain. Aborting."
+    return 1
+  fi
+  defaults_domain=$2
+  defaults_key=$3
+  defaults write $defaults_domain $defaults_key -string "$license_key"
+}
+
+set_license_key 'iStat Menus 5' com.bjango.istatmenus license5
+set_license_key 'Transmit' com.panic.Transmit SerialNumber2
+
 curl get.pow.cx | sh
 
 # Iosevka font (using in iTerm and Sublime Text)
