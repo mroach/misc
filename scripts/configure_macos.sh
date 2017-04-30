@@ -148,6 +148,12 @@ defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
+# Show debug menu
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+
+# Disable sleeping background tabs. Screws up things like Slack, WhatsApp, Gmail, Trello, DaPulse, Facebook. Basically everything.
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2HiddenPageDOMTimerThrottlingEnabled -bool false
+
 # Press Tab to highlight each item on a web page
 defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
