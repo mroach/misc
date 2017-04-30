@@ -27,6 +27,8 @@ brew install phantomjs
 brew install imagemagick
 brew install httpie
 brew install axel
+brew install nmap
+brew install mkvtoolnix
 
 npm install bower -g
 
