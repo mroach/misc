@@ -89,6 +89,9 @@ curl -OL https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R
 	rm -rf source-code-pro-2.030R-ro-1.050R-it && \
 	rm 1.05R-it.zip
 
+# Inconsolata
+curl -o ~/Library/Fonts/Inconsolata.otf http://www.levien.com/type/myfonts/Inconsolata.otf
+
 # sublime packages:
 # gitgutter, alignment, brackethighligher, sidebarenhancements, boxy, ruby slim
 
