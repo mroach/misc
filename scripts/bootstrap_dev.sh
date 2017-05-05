@@ -17,7 +17,7 @@ gem install mailcatcher
 brew install node
 brew install zsh
 brew install pow
-brew install gnupg
+brew install gnupg2
 brew install tmux
 brew install git
 brew install reattach-to-user-namespace

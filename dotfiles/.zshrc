@@ -73,3 +73,4 @@ source $HOME/workspace/mroach/misc/shell_setups/homebrew.sh
 source $HOME/workspace/mroach/misc/shell_setups/tmux_setups.sh
 source $HOME/workspace/mroach/misc/shell_setups/pow.sh
 source $HOME/workspace/mroach/misc/shell_setups/ssh.sh
+source $HOME/workspace/mroach/misc/shell_setups/gpg.sh
