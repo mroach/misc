@@ -14,6 +14,7 @@ ln -s $srcdir/dotfiles/.tmux.conf $HOME/.tmux.conf
 ln -s $srcdir/dotfiles/.bashrc $HOME/.bashrc
 ln -s $srcdir/dotfiles/.zshrc $HOME/.zshrc
 ln -s $srcdir/dotfiles/.gemrc $HOME/.gemrc
+ln -s $srcdir/dotfiles/.vimrc $HOME/.vimrc
 
 # .bash_profile is executed for login shells; .bashrc is executed for interactive non-login shells
 # ensure both are using the same configuration
