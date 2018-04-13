@@ -9,6 +9,7 @@ platform=$(uname -s)
 
 ln -s $srcdir/dotfiles/.gnupg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
 ln -s $srcdir/dotfiles/.gitconfig $HOME/.gitconfig
+ln -s $srcdir/dotfiles/.gitignore_global $HOME/.gitignore_global
 ln -s $srcdir/dotfiles/.grc.bashrc $HOME/.grc.bashrc
 ln -s $srcdir/dotfiles/.tmux.conf $HOME/.tmux.conf
 ln -s $srcdir/dotfiles/.bashrc $HOME/.bashrc
