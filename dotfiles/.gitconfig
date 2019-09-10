@@ -26,6 +26,14 @@
     lg = log --name-status --graph --decorate
     dc = diff --cached
     pr = pull --rebase
+    s = status
+    co = checkout
+    stash-list = stash list
+    fixup = commit --fixup=%f
+    amend = commit --amend --no-edit
+    push-force = push --force-with-lease
+    delete-remote-branch = push origin --delete
+    branch-list = branch -vv
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
@@ -33,4 +41,8 @@
 [diff]
 	wsErrorHighlight = all
 [commit]
-	gpgsign = true
+	gpgsign = false
+[rebase]
+	autosquash = true
+[log]
+	date = auto:human
