@@ -1,11 +1,3 @@
-LOCAL=${HOME}/local
-BASEPATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:${HOME}/bin:/sbin:/usr/sbin
-PATH=${LOCAL}/bin:${LOCAL}/sbin:${BASEPATH}:${HOME}/usr/bin:/Developer/usr/bin:${HOME}/android-sdk-macosx/platform-tools
-MANPATH=${MANPATH}:/opt/local/share/man
-POWERLINE_PATH="${HOME}/workspace/powerline-shell/powerline-shell.py"
-
-export PATH
-
 export TERM=xterm-256color
 
 # Nicer prompt generation
