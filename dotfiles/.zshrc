@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/mroach/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -10,11 +10,13 @@ ZSH_THEME='spaceship'
 
 GIT_PS1_SHOWUPSTREAM="auto"
 
-SPACESHIP_NVM_SHOW=false
+SPACESHIP_BATTERY_SHOW=false
+SPACESHIP_KUBECONTEXT_SHOW=false
+SPACESHIP_NODE_SHOW=false
 SPACESHIP_PYENV_SHOW=false
 SPACESHIP_RUBY_SHOW=false
 SPACESHIP_PYENV_SHOW=false
-SPACESHIP_PROMPT_TRUNC=8
+SPACESHIP_DIR_TRUNC=8
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -57,11 +59,6 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(brew bundler cap dirhistory gem git gitfast git-extras rails)
-
-# User configuration
-
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mroach/.rbenv/shims:/Users/mroach/local/bin:/Users/mroach/local/sbin:/usr/local/sbin:/Users/mroach/bin:/Users/mroach/usr/bin:/Developer/usr/bin:/Users/mroach/android-sdk-macosx/platform-tools"
-# export MANPATH="/usr/local/man:$MANPATH"
 
 if [ -f $ZSH/oh-my-zsh.sh ]; then
   source $ZSH/oh-my-zsh.sh
