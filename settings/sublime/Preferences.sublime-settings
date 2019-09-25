@@ -1,33 +1,97 @@
 {
+	"added_words":
+	[
+		"namespace",
+		"namespaced",
+		"schemas",
+		"app",
+		"enums",
+		"json",
+		"enum",
+		"stringified",
+		"paypal",
+		"param",
+		"cancelled"
+	],
 	"auto_complete_commit_on_tab": true,
+	"auto_complete_triggers":
+	[
+		{
+			"characters": ".",
+			"selector": "source.elixir"
+		}
+	],
 	"binary_file_patterns":
 	[
-		"*.jpg",
-		"*.jpeg",
-		"*.png",
-		"*.gif",
-		"*.ttf",
-		"*.tga",
 		"*.dds",
-		"*.ico",
+		"*.dump",
 		"*.eot",
-		"*.pdf",
-		"*.swf",
+		"*.gif",
+		"*.ico",
 		"*.jar",
+		"*.jpeg",
+		"*.jpg",
+		"*.pdf",
+		"*.png",
+		"*.scssc",
+		"*.swf",
+		"*.tga",
+		"*.ttf",
 		"*.zip",
-		"*.scssc"
+		".elixir_ls/**",
+		"_build/**",
+		"deps/**",
+		"doc/**"
 	],
 	"bold_folder_labels": true,
 	"caret_extra_bottom": 2,
 	"caret_extra_top": 2,
 	"caret_extra_width": 1,
 	"caret_style": "phase",
-	"color_scheme": "Packages/Boxy Theme/schemes/Boxy Ocean.tmTheme",
+	"color_scheme": "Packages/Boxy Theme/schemes/Boxy Solarized Light.tmTheme",
 	"default_encoding": "UTF-8",
 	"default_line_ending": "unix",
 	"drag_text": false,
-	"draw_white_space": "all",
+	"draw_white_space": "selection",
 	"ensure_newline_at_eof_on_save": true,
+	"extra_file_exclude_patterns":
+	[
+		"*.lib",
+		".DS_Store",
+		"npm-debug.log",
+		"*.db",
+		"*.class",
+		"*.dylib",
+		"*.so",
+		"*.sdf",
+		"*.ncb",
+		"*.psd",
+		"*.suo",
+		"*.exe",
+		"*.pdb",
+		"*.o",
+		"*.pyc",
+		"*.pyo",
+		"*.a",
+		"*.sublime-workspace",
+		"*.dll",
+		"*.idb",
+		"*.obj",
+		"spec/examples.txt"
+	],
+	"extra_folder_exclude_patterns":
+	[
+		"CVS",
+		"tmp",
+		"log",
+		".hg",
+		".git",
+		"bower_components",
+		"node_modules",
+		".svn",
+		"coverage",
+		".idea"
+	],
 	"file_exclude_patterns":
 	[
 		"*.lib",
@@ -58,25 +122,39 @@
 		"CVS",
 		"tmp",
 		"log",
-		"docs",
-		"build",
 		".hg",
 		".git",
 		"bower_components",
 		"node_modules",
 		".svn",
-		"coverage"
+		"coverage",
+		".idea"
 	],
-	"font_face": "Iosevka",
-	"font_size": 14.0,
+	"font_face": "PragmataPro Mono Liga",
+	"font_options":
+	[
+		"subpixel_antialias",
+		"ss01",
+		"no_bold",
+		"no_italic"
+	],
+	"font_size": 17.0,
 	"highlight_line": true,
 	"ignored_packages":
 	[
+		"LSP",
+		"SublimeLinter-rubocop",
 		"Vintage"
+	],
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
 	],
 	"line_numbers": true,
 	"line_padding_bottom": 1,
 	"line_padding_top": 1,
+	"overlay_scroll_bars": "enabled",
 	"rulers":
 	[
 		80,
@@ -85,9 +163,14 @@
 	],
 	"scroll_past_end": true,
 	"show_encoding": true,
+	"show_full_path": true,
 	"show_line_endings": true,
+	"spell_check": true,
 	"tab_size": 2,
-	"theme": "Boxy Ocean.sublime-theme",
+	"theme": "Boxy Solarized Light.sublime-theme",
+	"theme_font_options":
+	[
+	],
 	"translate_tabs_to_spaces": true,
 	"word_wrap": "auto"
 }
