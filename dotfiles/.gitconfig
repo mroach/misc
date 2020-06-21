@@ -47,3 +47,5 @@
 	autosquash = true
 [log]
 	date = auto:human
+[pull]
+	rebase = true
