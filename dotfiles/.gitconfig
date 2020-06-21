@@ -34,6 +34,7 @@
     push-force = push --force-with-lease
     delete-remote-branch = push origin --delete
     branch-list = branch -vv
+    p = !git push -u origin $(git branch --show-current)
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
