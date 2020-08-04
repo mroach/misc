@@ -7,13 +7,11 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 unsetopt beep
 bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/Users/michael.roach/.zshrc'
+
+zstyle :compinstall filename $HOME/.zshrc
 
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
 
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
