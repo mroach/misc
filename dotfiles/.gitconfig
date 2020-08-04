@@ -1,7 +1,6 @@
 [user]
 	name = mroach
 	email = mroach@mroach.com
-	signingkey = 84BF242B2E152325
 [color]
 	branch = auto
 	diff = auto
