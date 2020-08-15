@@ -31,6 +31,17 @@ source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh
 source ~/.config/zsh/devtmux.zsh
 source ~/.config/zsh/path.zsh
 
+alias ls='ls --color=auto --classify'
+
+if ! command -v open 1>/dev/null ; then
+  alias open='xdg-open'
+fi
+
+if command -v xclip 1>/dev/null ; then
+  alias pbcopy='xclip -selection c'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
+
 source_if_exists $HOME/.cargo/env
 
 bindkey "^[b" backward-word
