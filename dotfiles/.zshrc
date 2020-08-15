@@ -13,19 +13,25 @@ zstyle :compinstall filename $HOME/.zshrc
 autoload -Uz compinit
 compinit
 
-export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
+function source_if_exists {
+  [ -f $1 ] && source $1
+}
+
+export ZPLUG_HOME=$HOME/.zplug
+source_if_exists $ZPLUG_HOME/init.zsh
 
 zplug "woefe/git-prompt.zsh"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
-zplug load 
+zplug load
 
-source /usr/local/opt/fzf/shell/completion.zsh
-source /usr/local/opt/fzf/shell/key-bindings.zsh
+source_if_exists /usr/local/opt/fzf/shell/key-bindings.zsh
+source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh
 
 source ~/.config/zsh/devtmux.zsh
 source ~/.config/zsh/path.zsh
+
+source_if_exists $HOME/.cargo/env
 
 bindkey "^[b" backward-word
 bindkey "^[f" forward-word
