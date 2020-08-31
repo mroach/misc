@@ -93,7 +93,6 @@
 	"extra_folder_exclude_patterns":
 	[
 		"CVS",
-		"tmp",
 		"log",
 		".hg",
 		".git",
