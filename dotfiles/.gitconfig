@@ -9,7 +9,7 @@
 [core]
 	autocrlf = false
 	filemode = false
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.gitignore.global
 	editor = /usr/bin/vim
 [difftool]
   prompt = false
