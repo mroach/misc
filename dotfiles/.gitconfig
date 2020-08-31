@@ -47,4 +47,6 @@
 [log]
 	date = auto:human
 [pull]
-	rebase = true
+    rebase = true
+[include]
+    path = ~/.gitconfig.local
