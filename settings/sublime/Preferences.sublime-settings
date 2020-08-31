@@ -58,7 +58,7 @@
 	"caret_extra_top": 2,
 	"caret_extra_width": 1,
 	"caret_style": "phase",
-	"color_scheme": "Packages/Boxy Theme/schemes/Boxy Solarized Light.tmTheme",
+	"color_scheme": "Packages/ayu/ayu-mirage.sublime-color-scheme",
 	"default_encoding": "UTF-8",
 	"default_line_ending": "unix",
 	"drag_text": false,
@@ -177,7 +177,7 @@
 	"show_line_endings": true,
 	"spell_check": true,
 	"tab_size": 2,
-	"theme": "Boxy Solarized Light.sublime-theme",
+	"theme": "ayu-mirage.sublime-theme",
 	"theme_font_options":
 	[
 	],
