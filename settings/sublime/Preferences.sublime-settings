@@ -61,6 +61,7 @@
 	"color_scheme": "Packages/ayu/ayu-mirage.sublime-color-scheme",
 	"default_encoding": "UTF-8",
 	"default_line_ending": "unix",
+	"dictionary": "Packages/Language - English/en_GB.dic",
 	"drag_text": false,
 	"draw_white_space": "selection",
 	"ensure_newline_at_eof_on_save": true,
