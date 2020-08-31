@@ -34,17 +34,6 @@ source ~/.config/zsh/path.zsh
 source ~/.config/zsh/local.zsh
 source ~/.config/zsh/aliases.zsh
 
-alias ls='ls --color=auto --classify'
-
-if ! command -v open 1>/dev/null ; then
-  alias open='xdg-open'
-fi
-
-if command -v xclip 1>/dev/null ; then
-  alias pbcopy='xclip -selection c'
-  alias pbpaste='xclip -selection clipboard -o'
-fi
-
 source_if_exists $HOME/.cargo/env
 
 bindkey "^[b" backward-word
