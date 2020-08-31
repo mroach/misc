@@ -1,25 +1,25 @@
 [user]
-	name = mroach
-	email = git@c.mroach.com
+    name = mroach
+    email = git@c.mroach.com
 [color]
-	branch = auto
-	diff = auto
-	interactive = auto
-	status = auto
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
 [core]
-	autocrlf = false
-	filemode = false
-	excludesfile = ~/.gitignore.global
-	editor = /usr/bin/vim
+    autocrlf = false
+    filemode = false
+    excludesfile = ~/.gitignore.global
+    editor = /usr/bin/vim
 [difftool]
   prompt = false
 [push]
     default = simple
     followtags = true
 [filter "media"]
-	required = true
-	clean = git media clean %f
-	smudge = git media smudge %f
+    required = true
+    clean = git media clean %f
+    smudge = git media smudge %f
 [alias]
     l = log --name-status
     lg = log --name-status --graph --decorate
@@ -35,17 +35,17 @@
     branch-list = branch -vv
     p = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+    clean = git-lfs clean %f
+    smudge = git-lfs smudge %f
+    required = true
 [diff]
-	wsErrorHighlight = all
+    wsErrorHighlight = all
 [commit]
-	gpgsign = false
+    gpgsign = false
 [rebase]
-	autosquash = true
+    autosquash = true
 [log]
-	date = auto:human
+    date = auto:human
 [pull]
     rebase = true
 [include]
