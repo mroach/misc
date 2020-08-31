@@ -11,7 +11,17 @@
 		"stringified",
 		"paypal",
 		"param",
-		"cancelled"
+		"cancelled",
+		"Diffy",
+		"Debian",
+		"Quadro",
+		"Samsung",
+		"onboarding",
+		"async",
+		"refactor",
+		"blog",
+		"quo",
+		"apps"
 	],
 	"auto_complete_commit_on_tab": true,
 	"auto_complete_triggers":
