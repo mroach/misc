@@ -152,7 +152,7 @@
 	"highlight_line": true,
 	"ignored_packages":
 	[
-		"LSP",
+		"Rust",
 		"SublimeLinter-rubocop",
 		"Vintage"
 	],
