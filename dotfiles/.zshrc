@@ -30,7 +30,7 @@ source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh
 
 source ~/.config/zsh/devtmux.zsh
 source ~/.config/zsh/env.zsh
-source ~/.config/zsh/path.zsh
+source ~/.config/zsh/langs.zsh
 source ~/.config/zsh/aliases.zsh
 
 # allow overrides on this system that probably aren't version controlled
