@@ -29,7 +29,10 @@ source_if_exists /usr/local/opt/fzf/shell/key-bindings.zsh
 source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh
 
 source ~/.config/zsh/devtmux.zsh
+source ~/.config/zsh/env.zsh
 source ~/.config/zsh/path.zsh
+source ~/.config/zsh/local.zsh
+source ~/.config/zsh/aliases.zsh
 
 alias ls='ls --color=auto --classify'
 
