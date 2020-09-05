@@ -22,6 +22,7 @@ source_if_exists $ZPLUG_HOME/init.zsh
 
 zplug "woefe/git-prompt.zsh"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "bobsoppe/zsh-ssh-agent", use:ssh-agent.zsh, from:github
 
 zplug load
 
