@@ -440,8 +440,16 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/vim-easy-align'
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 Plug 'elixir-editors/vim-elixir'
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 call plug#end()
+
+let g:fzf_command_prefix = 'Fzf'
+
+:map <C-p> :FzfFiles<CR>
+:map <C-f> :FzfRg<CR>
