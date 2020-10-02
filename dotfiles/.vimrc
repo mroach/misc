@@ -255,7 +255,7 @@ set viminfo^=%
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ %{FugitiveStatusline()}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -420,6 +420,10 @@ Plug 'elixir-editors/vim-elixir'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 Plug 'chriskempson/base16-vim'
+
+Plug 'tpope/vim-fugitive'
+
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
