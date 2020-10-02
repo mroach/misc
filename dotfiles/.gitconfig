@@ -26,6 +26,7 @@
     dc = diff --cached
     pr = pull --rebase
     s = status
+    sc = clone --depth=1
     co = checkout
     stash-list = stash list
     fixup = commit --fixup=%f
