@@ -427,6 +427,17 @@ let g:fzf_command_prefix = 'Fzf'
 :map <C-p> :FzfFiles<CR>
 :map <C-f> :FzfRg<CR>
 
+" Enable line numbers
+set number
+
+" Highlight trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+" Display whitespace chars
+set listchars=extends:>,precedes:<,space:·,tab:⇢-
+set list
+
 " Enable 256 colour mode, GUI colours, and set the theme
 set termguicolors
 let base16colorspace=256
