@@ -431,6 +431,8 @@ let g:fzf_command_prefix = 'Fzf'
 
 :map <C-p> :FzfFiles<CR>
 :map <C-f> :FzfRg<CR>
+:map <F2> :NERDTreeToggle<CR>
+
 
 " Enable line numbers
 set number
