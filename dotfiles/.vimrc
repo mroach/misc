@@ -121,12 +121,7 @@ set foldcolumn=1
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
-
-try
-    colorscheme desert
-catch
-endtry
+syntax enable
 
 set background=dark
 
@@ -134,7 +129,6 @@ set background=dark
 if has("gui_running")
     set guioptions-=T
     set guioptions-=e
-    set t_Co=256
     set guitablabel=%M\ %t
 endif
 
@@ -424,9 +418,17 @@ Plug 'elixir-editors/vim-elixir'
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
+Plug 'chriskempson/base16-vim'
+
 call plug#end()
 
 let g:fzf_command_prefix = 'Fzf'
 
 :map <C-p> :FzfFiles<CR>
 :map <C-f> :FzfRg<CR>
+
+" Enable 256 colour mode, GUI colours, and set the theme
+set termguicolors
+let base16colorspace=256
+set t_Co=256
+colorscheme base16-ashes
