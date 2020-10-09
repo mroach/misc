@@ -427,6 +427,8 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'itchyny/lightline.vim'
 
+Plug 'editorconfig/editorconfig-vim'
+
 call plug#end()
 
 let g:fzf_command_prefix = 'Fzf'
