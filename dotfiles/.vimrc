@@ -431,9 +431,12 @@ call plug#end()
 
 let g:fzf_command_prefix = 'Fzf'
 
-:map <C-p> :FzfFiles<CR>
-:map <C-f> :FzfRg<CR>
-:map <F2> :NERDTreeToggle<CR>
+map <C-p> :FzfFiles<CR>
+map <C-f> :FzfRg<CR>
+inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
+
+map <F2> :NERDTreeToggle<CR>
 
 let g:lightline = {
       \ 'colorscheme': 'wombat',
