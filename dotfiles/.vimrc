@@ -425,6 +425,8 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'airblade/vim-gitgutter'
 
+Plug 'itchyny/lightline.vim'
+
 call plug#end()
 
 let g:fzf_command_prefix = 'Fzf'
@@ -433,6 +435,16 @@ let g:fzf_command_prefix = 'Fzf'
 :map <C-f> :FzfRg<CR>
 :map <F2> :NERDTreeToggle<CR>
 
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 " Enable line numbers
 set number
