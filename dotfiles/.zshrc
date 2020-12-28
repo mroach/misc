@@ -26,8 +26,9 @@ zplug "bobsoppe/zsh-ssh-agent", use:ssh-agent.zsh, from:github
 
 zplug load
 
-source_if_exists /usr/local/opt/fzf/shell/key-bindings.zsh
-source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh
+source_if_exists /usr/local/opt/fzf/shell/key-bindings.zsh     # Homebrew
+source_if_exists /opt/local/share/fzf/shell/key-bindings.zsh   # MacPorts
+source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh  # Debian
 
 source ~/.config/zsh/devtmux.zsh
 source ~/.config/zsh/env.zsh
