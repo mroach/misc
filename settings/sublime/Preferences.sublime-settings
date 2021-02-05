@@ -140,13 +140,10 @@
 		"coverage",
 		".idea"
 	],
-	"font_face": "PragmataPro Mono Liga",
+	"font_face": "PragmataPro Liga",
 	"font_options":
 	[
-		"subpixel_antialias",
-		"ss01",
-		"no_bold",
-		"no_italic"
+		"subpixel_antialias"
 	],
 	"font_size": 16.0,
 	"highlight_line": true,
