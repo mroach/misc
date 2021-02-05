@@ -31,6 +31,7 @@ source_if_exists /opt/local/share/fzf/shell/completion.zsh
 source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh  # Debian
 source_if_exists /usr/share/doc/fzf/examples/completion.zsh
 
+source ~/.config/zsh/completion.zsh
 source ~/.config/zsh/devtmux.zsh
 source ~/.config/zsh/env.zsh
 source ~/.config/zsh/langs.zsh
