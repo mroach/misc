@@ -35,6 +35,7 @@
     delete-remote-branch = push origin --delete
     branch-list = branch -vv
     p = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
+    regexadd = "!f() { git diff -U0 | grepdiff -E $1 --output-matching=hunk | git apply --cached --unidiff-zero; }; f"
 [filter "lfs"]
     clean = git-lfs clean %f
     smudge = git-lfs smudge %f
