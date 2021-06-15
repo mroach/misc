@@ -2,3 +2,5 @@
 .DS_Store
 *.sublime-project
 *.sublime-workspace
+credentials.yml.enc
+coverage/badge.svg
