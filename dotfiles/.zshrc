@@ -36,6 +36,7 @@ source ~/.config/zsh/devtmux.zsh
 source ~/.config/zsh/env.zsh
 source ~/.config/zsh/langs.zsh
 source ~/.config/zsh/aliases.zsh
+source ~/.config/zsh/fzf-git.zsh
 
 # allow overrides on this system that probably aren't version controlled
 source_if_exists ~/.zshrc.local
