@@ -81,3 +81,5 @@
     file-renamed-label = [R]
     file-style = 232 bold 184
     hunk-header-decoration-style = yellow box
+[init]
+  	defaultBranch = master
