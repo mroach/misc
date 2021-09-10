@@ -11,8 +11,14 @@
     filemode = false
     excludesfile = ~/.gitignore.global
     editor = /usr/bin/vim
+	  pager = delta
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
 [difftool]
-  prompt = false
+    prompt = false
 [push]
     default = simple
     followtags = true
@@ -52,3 +58,26 @@
     rebase = true
 [include]
     path = ~/.gitconfig.local
+    path = ~/.config/delta/themes.gitconfig
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[delta]
+    features = decorations
+    side-by-side = false
+    line-numbers = true
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    commit-decoration-style = blue ol
+    commit-style = raw
+    file-added-label = [+]
+    file-copied-label = [C]
+    file-decoration-style = none
+    file-modified-label = [M]
+    file-removed-label = [-]
+    file-renamed-label = [R]
+    file-style = 232 bold 184
+    hunk-header-decoration-style = yellow box
