@@ -3,6 +3,8 @@ __command_exists() {
   (( $+commands[$1] ))
 }
 
+alias g='git'
+
 # options differ between ls in GNU and BSD
 if ls --version 2>&1 | grep GNU &>/dev/null; then
     alias ls='ls --classify --color=auto --almost-all --human-readable'
