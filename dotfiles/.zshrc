@@ -41,7 +41,9 @@ source ~/.config/zsh/fzf-git.zsh
 # allow overrides on this system that probably aren't version controlled
 source_if_exists ~/.zshrc.local
 
-bindkey "^[b" backward-word
-bindkey "^[f" forward-word
+bindkey "^b" backward-word
+bindkey "^f" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
