@@ -417,6 +417,8 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'elixir-editors/vim-elixir'
 
+Plug 'fladson/vim-kitty'
+
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 Plug 'chriskempson/base16-vim'
