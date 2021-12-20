@@ -17,6 +17,10 @@ function source_if_exists {
   [ -f $1 ] && source $1
 }
 
+function precmd () {
+  echo -ne "\033]0;$(pwd | sed -e "s;^$HOME;~;")\a"
+}
+
 export ZPLUG_HOME=$HOME/.zplug
 source_if_exists $ZPLUG_HOME/init.zsh
 
