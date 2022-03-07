@@ -42,6 +42,7 @@
     branch-list = branch -vv
     p = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
     regexadd = "!f() { git diff -U0 | grepdiff -E $1 --output-matching=hunk | git apply --cached --unidiff-zero; }; f"
+    padd = "!f() { git add -N $1 && git add -p $1; }; f"
 [filter "lfs"]
     clean = git-lfs clean %f
     smudge = git-lfs smudge %f
