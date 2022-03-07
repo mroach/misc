@@ -465,7 +465,6 @@ match ExtraWhitespace /\s\+$/
 
 " Display whitespace chars
 set listchars=extends:>,precedes:<,space:·,tab:⇢-
-set list
 
 " Enable 256 colour mode, GUI colours, and set the theme
 set termguicolors
