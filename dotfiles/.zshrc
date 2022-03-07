@@ -21,6 +21,8 @@ function precmd () {
   echo -ne "\033]0;$(pwd | sed -e "s;^$HOME;~;")\a"
 }
 
+export FPATH=$HOME/.config/zsh/functions:/usr/share/zsh/vendor-completions:$FPATH
+
 export ZPLUG_HOME=$HOME/.zplug
 source_if_exists $ZPLUG_HOME/init.zsh
 
@@ -34,6 +36,7 @@ source_if_exists /opt/local/share/fzf/shell/key-bindings.zsh   # MacPorts
 source_if_exists /opt/local/share/fzf/shell/completion.zsh
 source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh  # Debian
 source_if_exists /usr/share/doc/fzf/examples/completion.zsh
+source_if_exists /usr/share/fzf/shell/key-bindings.zsh         # Fedora
 
 source ~/.config/zsh/completion.zsh
 source ~/.config/zsh/devtmux.zsh
