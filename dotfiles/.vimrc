@@ -116,6 +116,9 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+" Fix background rendering with some terminals
+let &t_ut=''
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
