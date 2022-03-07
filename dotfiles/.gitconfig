@@ -13,10 +13,10 @@
     editor = /usr/bin/vim
 	  pager = delta
 [pager]
-    diff = delta
-    log = delta
-    reflog = delta
-    show = delta
+    diff = delta --light
+    log = delta --light
+    reflog = delta --light
+    show = delta --light
 [difftool]
     prompt = false
 [push]
@@ -61,7 +61,7 @@
     path = ~/.gitconfig.local
     path = ~/.config/delta/themes.gitconfig
 [interactive]
-    diffFilter = delta --color-only --features=interactive
+    diffFilter = delta --color-only --features=interactive --light
 
 [delta]
     features = decorations
