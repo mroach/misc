@@ -42,3 +42,7 @@ if ! __command_exists pbpaste; then
   # x11
   __command_exists xclip && alias pbpaste='xclip -selection clipboard -o'
 fi
+
+if [ "$TERM" = "xterm-kitty" ]; then
+  alias icat="kitty +kitten icat"
+fi
