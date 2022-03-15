@@ -25,22 +25,22 @@ fi
 # purpose: copy text to the clipboard
 # example: curl httbin.org/uuid | pbcopy
 if ! __command_exists pbcopy; then
-  # wayland
-  __command_exists wl-copy && alias pbcopy='wl-copy'
-
-  # x11
-  __command_exists xclip && alias pbcopy='xclip -selection c'
+  case "$XDG_SESSION_TYPE" in
+    wayland) __command_exists wl-copy && alias pbcopy='wl-copy' ;;
+    x11)     __command_exists xclip && alias pbcopy='xclip -selection c' ;;
+    *) ;;
+  esac
 fi
 
 # ensure command: pbpaste
 # purpose: paste text from the clipboard
 # example: echo "the clipboard contents are $(pbpaste)"
 if ! __command_exists pbpaste; then
-  # wayland
-  __command_exists wl-paste && alias pbcopy='wl-paste'
-
-  # x11
-  __command_exists xclip && alias pbpaste='xclip -selection clipboard -o'
+  case "$XDG_SESSION_TYPE" in
+    wayland) __command_exists wl-paste && alias pbpaste='wl-paste' ;;
+    x11)     __command_exists xclip && alias pbpaste='xclip -selection clipboard -o' ;;
+    *) ;;
+  esac
 fi
 
 if [ "$TERM" = "xterm-kitty" ]; then
