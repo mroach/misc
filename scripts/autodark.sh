@@ -8,6 +8,7 @@ vim_themes=(base16-gruvbox-light-soft base16-ashes)
 vim_bg=(light dark)
 bat_themes=(OneHalfLight default)
 kitten_themes=("Solarized Light" Ayu)
+sublime_themes=("gruvbox (Light) (Medium) NDC.sublime-color-scheme" "gruvbox (Dark) (Medium) NDC.sublime-color-scheme")
 
 if [[ "${new_mode}" == "light" ]]; then
   theme_index=0
@@ -27,3 +28,6 @@ sed -i -r "/^set background=/c set background=${vim_bg[$theme_index]}" ~/.vimrc
 
 # bat --list-themes to see what's available
 sed -i -r "/^--theme/c --theme ${bat_themes[$theme_index]}" ~/.config/bat/config
+
+# sublime text -- use the switch command
+subl --background --command "select_color_scheme {\"name\": \"${sublime_themes[$theme_index]}\"}"
