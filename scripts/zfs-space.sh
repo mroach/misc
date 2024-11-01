@@ -12,10 +12,14 @@ reset="\e[0m"
 ds_char="■"
 snap_char="◆"
 other_char="▦"
-free_char="□"
+#free_char="□"
+#free_char="${ds_char}"
+free_char=" "
 
 function format_bytes() {
-  numfmt --to="${size_format}" --format="%.01f" "$1"
+  num=$1
+  precision=${2:1}
+  numfmt --to="${size_format}" --format="%.0${precision}f" "$num"
 }
 
 function pct() {
@@ -47,15 +51,11 @@ function bar() {
   [ $other_width -gt 0 ] && printf "${other_char}%.0s" $(seq 1 $other_width)
 
   if [ $rem -gt 0 ]; then
-    printf "${dim}${free_char}%.0s" $(seq 1 $rem)
-    # To pad with spaces, do this instead:
-    #printf "${dim}%*s" $rem
+    printf "${reset}${dim}${free_char}%.0s" $(seq 1 $rem)
   fi
 
   echo -ne "${reset}${dim}]${reset}"
 }
-
-echo
 
 while read -r line; do
   IFS=$'\t' read -r -a props <<< "$line"
@@ -79,7 +79,7 @@ while read -r line; do
   # For datasets, remove the pool name and indent
   local_name="${name#*/}"
   if [ "$local_name" = "$name" ]; then
-    printf '%-12s' "$name"
+    printf '\n%-12s' "$name"
   else
     printf '  %-10s' "$local_name"
     #echo "  $local_name"
@@ -88,7 +88,8 @@ while read -r line; do
   bar "$ds_used_pct" "$snap_used_pct" "$other_used_pct"
 
   # Style 1: compact
-  printf "%5s%% used  %6s free\n" "$used_pct" "$(format_bytes $avail)"
+  #printf "%5s%% used  %6s free\n" "$used_pct" "$(format_bytes $avail)"
+  printf " %4s free of %4s\n" "$(format_bytes $avail 0)" "$(format_bytes $capacity 0)"
 
   # Style 2: expanded
   #echo -n "   "
